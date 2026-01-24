@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+qr_codes/
+id_proofs/
+ocr_docs/
+prescriptions/
+*.sqlite3
+*.db
