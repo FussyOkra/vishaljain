@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:swasth_id_app/core/constants/app_colors.dart';
-import 'package:swasth_id_app/features/records/visit_list_screen.dart';
-import 'package:swasth_id_app/features/swasth_ai/swasth_ai_screen.dart';
-import 'package:swasth_id_app/widgets/glass_container.dart';
+import 'package:swasth_id_app/features/profile/widgets/app_drawer.dart';
 import 'package:swasth_id_app/widgets/gradient_scaffold.dart';
+import 'package:swasth_id_app/features/home/widgets/flip_health_card.dart';
+import 'package:swasth_id_app/features/home/widgets/vitals_dashboard.dart';
+import 'package:swasth_id_app/features/home/widgets/disease_heatmap_widget.dart';
+import 'package:swasth_id_app/features/home/widgets/risk_status_card.dart';
+import 'package:swasth_id_app/features/board/widgets/vaccine_badge_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,42 +14,84 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
+      drawer: const AppDrawer(), 
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 100), // Space for floating nav
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 12),
             _buildHeader(),
+            const SizedBox(height: 24),
+            
+            // 1. HERO: Flip Health ID
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: FlipHealthCard(),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // 2. VITALS DASHBOARD
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                "My Vitals",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textColor),
+              ),
+            ),
+             const SizedBox(height: 12),
+            const VitalsDashboard(),
+            
+            const SizedBox(height: 32),
+            
+            // 3. DISEASE RADAR (New Heatmap)
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
                 children: [
-                  _buildHealthCard(),
-                  const SizedBox(height: 24),
-                  const Text(
-                    "Quick Actions",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
-                    ),
+                   const Text(
+                    "Disease Radar",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textColor),
                   ),
-                  const SizedBox(height: 16),
-                  _buildQuickGrid(context),
-                  const SizedBox(height: 24),
-                  const Text(
-                    "Recent Updates",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textColor,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRecentUpdateCard(),
+                  const Spacer(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(color: Colors.red.shade50, borderRadius: BorderRadius.circular(8)),
+                    child: const Text("LIVE", style: TextStyle(fontSize: 10, color: Colors.red, fontWeight: FontWeight.bold)),
+                  )
                 ],
               ),
             ),
+            const SizedBox(height: 12),
+            const DiseaseHeatMapWidget(),
+            
+            const SizedBox(height: 32),
+
+            // 4. PRIORITY ACTIONS
+             const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                "Priority Attention",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textColor),
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: RiskStatusCard(),
+            ),
+            const SizedBox(height: 16),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: VaccineBadgeCard(
+                  name: "Vishal jain",
+                  vaccine: "Covishield",
+                  isVaccinated: true),
+            ),
+            
+             const SizedBox(height: 24),
           ],
         ),
       ),
@@ -54,176 +99,34 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 60, 20, 30),
-      decoration: const BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.white,
-            child: Icon(Icons.person, size: 30, color: AppColors.primaryColor),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Welcome Back,",
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
-                ),
-                const Text(
-                  "Swasth User",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+          Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu_rounded, color: AppColors.primaryColor, size: 28), // Dark color for light bg
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none, color: Colors.white, size: 28),
+          const SizedBox(width: 12),
+          Column(
+             crossAxisAlignment: CrossAxisAlignment.start, // Fixed: Was causing error because 'child' was misplaced
+             children: [
+               const Text("Good Morning,", style: TextStyle(color: Colors.grey, fontSize: 12)),
+               const Text("Vishal Jain", style: TextStyle(color: AppColors.textColor, fontSize: 20, fontWeight: FontWeight.bold)),
+             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHealthCard() {
-    return GlassContainer(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Swasth ID",
-                  style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
-                ),
-                const SizedBox(height: 4),
-                const Text(
-                  "HID-123456",
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.success.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: const Text(
-                    "Active & Verified",
-                    style: TextStyle(color: AppColors.success, fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const Spacer(),
           Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              color: AppColors.tealAccent.withOpacity(0.1),
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.qr_code, size: 40, color: AppColors.tealAccent),
-          ),
+             padding: const EdgeInsets.all(8),
+             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)]),
+             child: const Icon(Icons.notifications_none_rounded, color: AppColors.primaryColor),
+          )
         ],
       ),
-    );
-  }
-
-  Widget _buildQuickGrid(BuildContext context) {
-    final actions = [
-      {
-        'icon': Icons.smart_toy,
-        'label': 'Swasth AI',
-        'color': const Color(0xFF6C63FF),
-        'onTap': () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SwasthAiScreen()))
-      },
-      {
-        'icon': Icons.article_outlined,
-        'label': 'Records',
-        'color': AppColors.primaryColor,
-        'onTap': () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VisitListScreen()))
-      },
-      {
-        'icon': Icons.local_hospital_outlined,
-        'label': 'Doctors',
-        'color': AppColors.tealAccent,
-        'onTap': () {} // Todo
-      },
-      {
-        'icon': Icons.medication_outlined,
-        'label': 'Medicines',
-        'color': Colors.orange,
-        'onTap': () {} // Todo
-      },
-    ];
-
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 1.5,
-      ),
-      itemCount: actions.length,
-      itemBuilder: (context, index) {
-        final item = actions[index];
-        return InkWell(
-          onTap: item['onTap'] as VoidCallback,
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: (item['color'] as Color).withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: (item['color'] as Color).withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(item['icon'] as IconData, color: item['color'] as Color),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  item['label'] as String,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -250,7 +153,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Upcoming Vaccination",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),

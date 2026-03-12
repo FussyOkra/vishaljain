@@ -36,29 +36,36 @@ class RecentVisitsCard extends StatelessWidget {
     return Column(
       children: [
         // SECTION 3: LAST DOCTOR ADVICE (Trust Builder)
-        Card(
-          elevation: 4,
-          shadowColor: Colors.teal.withOpacity(0.2),
-          color: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.teal.withOpacity(0.1),
+                blurRadius: 15,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.teal.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.medical_services_outlined, color: Colors.teal, size: 20),
+                      child: const Icon(Icons.format_quote_rounded, color: Colors.teal, size: 24),
                     ),
                     const SizedBox(width: 12),
                     const Text(
-                      'Last Doctor Advice',
+                      'Doctor\'s Note',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -67,7 +74,7 @@ class RecentVisitsCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 Text(
                   '"$doctorAdvice"',
                   style: const TextStyle(
@@ -82,67 +89,89 @@ class RecentVisitsCard extends StatelessWidget {
           ),
         ),
         
-        const SizedBox(height: 16),
+        const SizedBox(height: 20),
 
         // SECTION 4: RECENT DOCTOR VISIT (Single)
-        Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: InkWell(
-            onTap: onViewAll, // In future, link to specific visit detail
-            borderRadius: BorderRadius.circular(20),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Recent Visit',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: onViewAll,
+              borderRadius: BorderRadius.circular(24),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Recent Visit',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
-                        child: const Icon(Icons.local_hospital, color: AppColors.primaryColor),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
                             Text(
-                              facility,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textColor,
-                              ),
+                              'View All',
+                              style: TextStyle(fontSize: 12, color: AppColors.primaryColor.withOpacity(0.8), fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              '$formattedDate • $type',
-                              style: const TextStyle(color: Colors.grey),
-                            ),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.arrow_forward_ios, size: 12, color: AppColors.primaryColor),
                           ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Container(
+                          height: 56,
+                          width: 56,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor.withOpacity(0.08),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Icon(Icons.local_hospital_rounded, color: AppColors.primaryColor, size: 28),
                         ),
-                      ),
-                      _buildStatusChip(type),
-                    ],
-                  ),
-                ],
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                facility,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textColor,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                '$formattedDate • $type',
+                                style: TextStyle(color: AppColors.textSecondary.withOpacity(0.7), fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                        _buildStatusChip(type),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:label="swasth_id_app"
         android:name="${applicationName}"
@@ -33,6 +35,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        
+        <!-- Google Maps API Key (User must replace this) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBxIj_cwjFTdoqmnKAZ2iTV-YYH2JasBsY"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -40,9 +47,21 @@
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
-        <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
-        </intent>
+43:         <intent>
+44:             <action android:name="android.intent.action.PROCESS_TEXT"/>
+45:             <data android:mimeType="text/plain"/>
+46:         </intent>
+          <intent>
+              <action android:name="android.intent.action.VIEW" />
+              <data android:scheme="tel" />
+          </intent>
+          <intent>
+              <action android:name="android.intent.action.VIEW" />
+              <data android:scheme="http" />
+          </intent>
+          <intent>
+              <action android:name="android.intent.action.VIEW" />
+              <data android:scheme="https" />
+          </intent>
     </queries>
 </manifest>

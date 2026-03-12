@@ -1,0 +1,18 @@
+--- ALL TABLES ---
+medical_records
+disease_surveillance
+ocr_documents
+profiles
+health_ids
+visits
+chat_sessions
+chat_messages
+
+--- PROFILES ---
+Profile: ID=1, Mobile='9444529010', Name='mohesh'
+
+--- HEALTH IDs ---
+HealthID: ID=1, Mobile='9444529010', HID='4d49cb4e-b78f-4562-a0b6-893e4cad1368'
+
+--- OTPs (If exists) ---
+Could not read otps table: no such table: otps

@@ -33,6 +33,7 @@ from app.models.profile import Profile
 from app.models.health_id import HealthID
 from app.models.visit import Visit
 from app.models.medical_record import MedicalRecord
+from app.models.medical_document import MedicalDocument
 from app.models.disease_surveillance import DiseaseSurveillance
 from app.rag import swasth_ai_answer
 
@@ -69,6 +70,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+from fastapi.staticfiles import StaticFiles
+
+# Ensure directories exist
+os.makedirs("qr_codes", exist_ok=True)
+os.makedirs("prescriptions", exist_ok=True)
+os.makedirs("id_proofs", exist_ok=True)
+os.makedirs("medical_records", exist_ok=True)
+
+# Mount Static Directories
+app.mount("/qr_codes", StaticFiles(directory="qr_codes"), name="qr_codes")
+app.mount("/prescriptions", StaticFiles(directory="prescriptions"), name="prescriptions")
+app.mount("/id_proofs", StaticFiles(directory="id_proofs"), name="id_proofs")
+app.mount("/medical_records", StaticFiles(directory="medical_records"), name="medical_records")
 
 from app.models.chat import ChatSession, ChatMessage
 
@@ -159,6 +174,8 @@ def api_verify_otp(
     mobile: str,  # Added mobile for user lookup
     db: Session = Depends(get_db) # Added DB dependency
 ):
+    mobile = mobile.strip() # Ensure no trailing spaces
+    print(f"DEBUG: Verifying user status for mobile: '{mobile}'")
     response = verify_otp("", otp, verification_id)
 
     if not response.get("success"):
@@ -170,13 +187,18 @@ def api_verify_otp(
     
     # Check Profile
     profile = db.query(Profile).filter(Profile.mobile == mobile).first()
+    print(f"DEBUG: Profile Check for {mobile}: {'Found' if profile else 'Not Found'}")
     
     # Check Health ID
     hid_record = db.query(HealthID).filter(HealthID.mobile == mobile).first()
+    print(f"DEBUG: HealthID Check for {mobile}: {'Found' if hid_record else 'Not Found'}")
     
     if profile and hid_record:
         is_existing_user = True
         health_id = hid_record.health_id
+        print(f"DEBUG: User {mobile} is EXISTING (Redirect to Home)")
+    else:
+        print(f"DEBUG: User {mobile} is NEW (Redirect to Registration)")
 
     return {
         "message": "OTP verified successfully",
@@ -358,6 +380,110 @@ def view_profile(health_id: str, db: Session = Depends(get_db)):
             "allergies": profile.allergies
         }
     }
+
+@app.get("/profile/details")
+def get_profile_by_mobile(mobile: str, db: Session = Depends(get_db)):
+    profile = db.query(Profile).filter(Profile.mobile == mobile).first()
+    
+    if not profile:
+        return {"error": "Profile not found"}
+
+    hid_record = db.query(HealthID).filter(HealthID.mobile == mobile).first()
+    health_id = hid_record.health_id if hid_record else None
+
+    return {
+        "health_id": health_id,
+        "personal_details": {
+            "name": profile.name,
+            "age": profile.age,
+            "gender": profile.gender,
+            "address": profile.address,
+            "city": profile.city,
+            "state": profile.state,
+            "pincode": profile.pincode,
+            "mobile": profile.mobile
+        },
+        "medical_details": {
+            "height_cm": profile.height_cm,
+            "weight_kg": profile.weight_kg,
+            "bmi": profile.bmi,
+            "blood_group": profile.blood_group,
+            "vaccination_status": profile.vaccination_status,
+            "allergies": profile.allergies
+        },
+        "emergency_contacts": {
+            "name": profile.emergency_contact_name,
+            "phone": profile.emergency_contact_phone,
+            "relation": profile.emergency_contact_relation
+        },
+        "insurance_details": {
+            "provider": profile.insurance_provider,
+            "policy_no": profile.insurance_policy_no,
+            "valid_till": profile.insurance_valid_till,
+            "tpa": profile.insurance_tpa
+        }
+    }
+
+@app.post("/update-emergency-contacts")
+def update_emergency_contacts(
+    mobile: str,
+    name: str,
+    phone: str,
+    relation: str,
+    db: Session = Depends(get_db)
+):
+    profile = db.query(Profile).filter(Profile.mobile == mobile).first()
+    if not profile:
+        return {"error": "Profile not found"}
+
+    profile.emergency_contact_name = name
+    profile.emergency_contact_phone = phone
+    profile.emergency_contact_relation = relation
+    db.commit()
+
+    return {"message": "Emergency contacts updated successfully", "success": True}
+
+@app.post("/emergency/trace")
+def log_emergency_trace(
+    mobile: str,
+    action_type: str, # "sos_call" or "nearby_hospitals"
+    location_lat: float = None,
+    location_lng: float = None,
+    db: Session = Depends(get_db)
+):
+    """
+    Logs emergency actions for audit and safety analytics.
+    Returns success status.
+    """
+    print(f"URGENT: Emergency Action '{action_type}' triggered by {mobile} at {location_lat},{location_lng}")
+    # In a real system, this would write to an AuditLog table or trigger a notification
+    
+    return {
+        "success": True, 
+        "message": f"Emergency action '{action_type}' logged.", 
+        "timestamp": date.today()
+    }
+
+@app.post("/update-insurance-details")
+def update_insurance_details(
+    mobile: str,
+    provider: str,
+    policy_no: str,
+    valid_till: str,
+    tpa: str,
+    db: Session = Depends(get_db)
+):
+    profile = db.query(Profile).filter(Profile.mobile == mobile).first()
+    if not profile:
+        return {"error": "Profile not found"}
+
+    profile.insurance_provider = provider
+    profile.insurance_policy_no = policy_no
+    profile.insurance_valid_till = valid_till
+    profile.insurance_tpa = tpa
+    db.commit()
+
+    return {"message": "Insurance details updated successfully", "success": True}
 
 @app.post("/upload-id-proof")
 def upload_id_proof(
@@ -542,6 +668,8 @@ def confirm_id_verification(
 
     db.add(record)
     db.commit()
+    
+    print(f"DEBUG: Created HealthID for {mobile}: {health_uid}") # LOGGING ADDED
 
     import os
     os.makedirs("qr_codes", exist_ok=True)
@@ -578,6 +706,10 @@ def create_visit(
     referred_to: str = None,
     referral_reason: str = None,
 
+    doctor_name: str = None,
+    specialization: str = None,
+    attachments: str = None, # JSON list of URLs or filenames
+
     db: Session = Depends(get_db)
 ):
     visit_uid = str(uuid.uuid4())
@@ -600,6 +732,9 @@ def create_visit(
         referred=referred,
         referred_to=referred_to,
         referral_reason=referral_reason,
+        doctor_name=doctor_name,
+        specialization=specialization,
+        attachments=attachments,
         synced=False
     )
 
@@ -612,6 +747,54 @@ def create_visit(
         "visit_id": visit_uid,
         "synced": False
     }
+
+
+@app.post("/visits/update")
+def update_visit(
+    visit_id: str,
+    facility_name: str = None,
+    district: str = None,
+    state: str = None,
+    visit_type: str = None,
+    chief_complaint: str = None,
+    symptoms: str = None,
+    temperature_c: float = None,
+    bp: str = None,
+    spo2: int = None,
+    vaccine_given: bool = None,
+    vaccine_name: str = None,
+    next_dose_due_date: str = None,
+    referred: bool = None,
+    referred_to: str = None,
+    referral_reason: str = None,
+    doctor_name: str = None,
+    specialization: str = None,
+    db: Session = Depends(get_db)
+):
+    visit = db.query(Visit).filter(Visit.visit_id == visit_id).first()
+    if not visit:
+        raise HTTPException(status_code=404, detail="Visit not found")
+
+    if facility_name: visit.facility_name = facility_name
+    if district: visit.district = district
+    if state: visit.state = state
+    if visit_type: visit.visit_type = visit_type
+    if chief_complaint: visit.chief_complaint = chief_complaint
+    if symptoms: visit.symptoms = symptoms
+    if temperature_c is not None: visit.temperature_c = temperature_c
+    if bp: visit.bp = bp
+    if spo2 is not None: visit.spo2 = spo2
+    if vaccine_given is not None: visit.vaccine_given = vaccine_given
+    if vaccine_name: visit.vaccine_name = vaccine_name
+    if next_dose_due_date: visit.next_dose_due_date = next_dose_due_date
+    if referred is not None: visit.referred = referred
+    if referred_to: visit.referred_to = referred_to
+    if referral_reason: visit.referral_reason = referral_reason
+    if doctor_name: visit.doctor_name = doctor_name
+    if specialization: visit.specialization = specialization
+
+    db.commit()
+    return {"message": "Visit updated successfully"}
 
 
 @app.post("/records/create")
@@ -1270,3 +1453,191 @@ def ocr_read_document(file_path: str):
         'ocr_text': text
     }
 
+
+@app.get("/health/status/{health_id}")
+def get_health_status(health_id: str, db: Session = Depends(get_db)):
+    """
+    Returns 'SAFE', 'AT_RISK', or 'MODERATE' based on medical history and location.
+    """
+    # 1. Check for recent infectious diseases (last 14 days)
+    recent_infection = db.query(MedicalRecord).filter(
+        MedicalRecord.health_id == health_id,
+        MedicalRecord.is_infectious == True
+    ).order_by(MedicalRecord.created_at.desc()).first()
+
+    if recent_infection:
+        # In a real app, check logic for 'created_at' < 14 days
+        # For demo, if *any* infectious record exists that isn't 'resolved', flag it
+        return {
+            "status": "AT_RISK",
+            "color": "#FF5252", # Red
+            "message": "You have a recent infectious record. Please isolate."
+        }
+    
+    # 2. Check District Risk (via last visit location)
+    last_visit = db.query(Visit).filter(Visit.health_id == health_id).order_by(Visit.created_at.desc()).first()
+    if last_visit and last_visit.district:
+        district_risk = db.query(DiseaseSurveillance).filter(
+            DiseaseSurveillance.district == last_visit.district
+        ).order_by(DiseaseSurveillance.date.desc()).first()
+        
+        if district_risk and district_risk.alert_level == "HIGH":
+             return {
+                "status": "MODERATE",
+                "color": "#FFC107", # Amber
+                "message": f"High cases in {last_visit.district}. Be cautious."
+            }
+
+    # 3. Default Safe
+    return {
+        "status": "SAFE",
+        "color": "#4CAF50", # Green
+        "message": "You are safe. Maintain social distancing."
+    }
+
+@app.get("/health/vaccine-certificate/{health_id}")
+def get_vaccine_certificate(health_id: str, db: Session = Depends(get_db)):
+    """
+    Returns signed vaccine certificate data (simulated).
+    """
+    # 1. Get Profile
+    hid = db.query(HealthID).filter(HealthID.health_id == health_id).first()
+    if not hid:
+         raise HTTPException(status_code=404, detail="Health ID not found")
+         
+    profile = db.query(Profile).filter(Profile.mobile == hid.mobile).first()
+    if not profile:
+         raise HTTPException(status_code=404, detail="Profile not found")
+
+    is_vaccinated = False
+    status = profile.vaccination_status.lower() if profile.vaccination_status else ""
+    
+    if "cov" in status or "vaccinated" in status or "double" in status or "booster" in status or "yes" in status:
+        is_vaccinated = True
+    
+    if not is_vaccinated:
+        return {"is_vaccinated": False, "message": "No vaccination record found."}
+
+    # 2. Generate Certificate Data
+    # In real app, this would be a crypto-signed payload
+    cert_id = f"VC-{uuid.uuid4().hex[:8].upper()}"
+    
+    return {
+        "is_vaccinated": True,
+        "beneficiary": profile.name,
+        "vaccine": "Covishield" if "covi" in status else "Covaxin",
+        "dose_1_date": "2021-06-15",
+        "dose_2_date": "2021-09-20", 
+        "certificate_id": cert_id,
+        "uhid": health_id,
+        "qr_data": f"SWASTH_ID:{health_id}|VAC:YES|ID:{cert_id}"
+    }
+
+# -----------------------
+# RECORDS TAB ENDPOINTS
+# -----------------------
+
+@app.post("/api/records/upload")
+def upload_medical_record(
+    health_id: str = Form(...),
+    visit_id: str = Form(None),
+    document_type: str = Form(...),
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db)
+):
+    import os
+    import uuid
+    from datetime import datetime
+
+    os.makedirs("medical_records", exist_ok=True)
+    
+    file_extension = file.filename.split(".")[-1]
+    doc_uid = str(uuid.uuid4())
+    filename = f"{health_id}_{doc_uid}.{file_extension}"
+    file_path = os.path.join("medical_records", filename)
+
+    with open(file_path, "wb") as f:
+        f.write(file.file.read())
+
+    # Replace windows backslashes for web URL
+    file_url = file_path.replace("\\", "/")
+
+    doc = MedicalDocument(
+        document_id=doc_uid,
+        health_id=health_id,
+        visit_id=visit_id,
+        document_type=document_type,
+        file_url=f"/{file_url}",
+        file_name=file.filename
+    )
+
+    db.add(doc)
+    db.commit()
+    db.refresh(doc)
+
+    return {
+        "message": "Record uploaded successfully",
+        "document_id": doc_uid,
+        "file_url": doc.file_url
+    }
+
+@app.get("/api/patients/{health_id}/records")
+def get_patient_records(health_id: str, db: Session = Depends(get_db)):
+    visits = db.query(Visit).filter(Visit.health_id == health_id).order_by(Visit.created_at.desc()).all()
+    documents = db.query(MedicalDocument).filter(MedicalDocument.health_id == health_id).all()
+
+    # Group documents by visit_id
+    doc_map = {}
+    for doc in documents:
+        v_id = doc.visit_id or "unassigned"
+        if v_id not in doc_map:
+            doc_map[v_id] = []
+        doc_map[v_id].append({
+            "id": doc.document_id,
+            "title": doc.file_name,
+            "type": doc.document_type,
+            "uploadDate": doc.created_at.isoformat() if doc.created_at else datetime.now().isoformat(),
+            "fileUrl": doc.file_url
+        })
+    
+    visit_groups = []
+    for v in visits:
+        docs = doc_map.get(v.visit_id, [])
+        # We only want to show visits if they have records, or if we want to show all timeline anyway.
+        # User requested: "Medical Timeline: Visits displayed chronologically. Attachments: X..."
+        # If visit has NO attachments, maybe we still show it so they can add to it. Let's include all.
+        visit_groups.append({
+            "visitId": v.visit_id,
+            "visitDate": v.created_at.isoformat() if v.created_at else datetime.now().isoformat(),
+            "diagnosis": v.chief_complaint or "General Checkup",
+            "doctorName": v.doctor_name or "-",
+            "documents": docs,
+            "symptoms": v.symptoms,
+            "temperature_c": v.temperature_c,
+            "bp": v.bp,
+            "spo2": v.spo2,
+            "visitType": v.visit_type,
+            "facilityName": v.facility_name,
+            "specialization": v.specialization,
+            "vaccineGiven": v.vaccine_given,
+            "vaccineName": v.vaccine_name,
+            "nextDoseDate": v.next_dose_due_date,
+            "referred": v.referred,
+            "referredTo": v.referred_to,
+            "referralReason": v.referral_reason,
+        })
+
+    # Add unassigned documents as a generic group at the top or bottom
+    if "unassigned" in doc_map and doc_map["unassigned"]:
+        visit_groups.insert(0, {
+            "visitId": "unassigned",
+            "visitDate": doc_map["unassigned"][0]["uploadDate"], 
+            "diagnosis": "Uploaded Records (No Visit Linked)",
+            "doctorName": "-",
+            "documents": doc_map["unassigned"]
+        })
+
+    return {
+        "health_id": health_id,
+        "visits": visit_groups
+    }

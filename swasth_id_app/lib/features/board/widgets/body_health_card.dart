@@ -55,12 +55,20 @@ class BodyHealthCard extends StatelessWidget {
     
     final String idealRange = '${minWeight.round()} - ${maxWeight.round()} kg';
 
-    return Card(
-      elevation: 4,
-      shadowColor: Colors.black.withOpacity(0.1),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,22 +77,27 @@ class BodyHealthCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Body Health Summary',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textColor),
+                  'Your Vitals',
+                  style: TextStyle(
+                    fontSize: 16, 
+                    fontWeight: FontWeight.bold, 
+                    color: AppColors.textSecondary
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: statusColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: statusColor.withOpacity(0.5)),
+                    // border: Border.all(color: statusColor.withOpacity(0.3)), // Cleaner without border
                   ),
                   child: Text(
                     status.toUpperCase(),
                     style: TextStyle(
                       color: statusColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      letterSpacing: 0.5,
                     ),
                   ),
                 ),
@@ -92,26 +105,14 @@ class BodyHealthCard extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             
-            // Large Status Message
-            Center(
-              child: Text(
-                largeMessage,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: statusColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-
             // Metrics Grid
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildMetric('Height', '${heightCm!.round()} cm'),
+                _buildDivider(),
                 _buildMetric('Weight', '$weightKg kg'),
-                _buildMetric('Age', '$age yrs'),
+                _buildDivider(),
                 _buildMetric('BMI', bmiString, isHighlight: true, highlightColor: statusColor),
               ],
             ),
@@ -119,40 +120,44 @@ class BodyHealthCard extends StatelessWidget {
 
             // Ideal Weight Box
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.teal.withOpacity(0.05), Colors.blue.withOpacity(0.05)],
-                ),
+                color: AppColors.primaryColor.withOpacity(0.04),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.teal.withOpacity(0.1)),
               ),
-              child: Column(
+              child: Row(
                 children: [
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                       color: Colors.white,
+                       shape: BoxShape.circle,
+                       boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4)]
+                    ),
+                    child: const Icon(Icons.monitor_weight_outlined, color: AppColors.primaryColor, size: 20)
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.check_circle_outline, color: Colors.teal, size: 20),
-                      const SizedBox(width: 8),
                       Text(
-                        'Ideal weight: ${idealWeight.round()} kg',
+                        'Ideal Weight: ${idealWeight.round()} kg',
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Colors.teal,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Target Range: $idealRange',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.textSecondary.withOpacity(0.8),
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Target Range: $idealRange',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                    ),
                   ),
                 ],
               ),
@@ -160,6 +165,14 @@ class BodyHealthCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Container(
+      height: 30,
+      width: 1,
+      color: Colors.grey.withOpacity(0.2),
     );
   }
 

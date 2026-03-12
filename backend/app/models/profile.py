@@ -23,3 +23,14 @@ class Profile(Base):
     blood_group = Column(String)
     vaccination_status = Column(String)
     allergies = Column(String)
+
+    # Emergency Contact
+    emergency_contact_name = Column(String)
+    emergency_contact_phone = Column(String)
+    emergency_contact_relation = Column(String)
+
+    # Insurance Details
+    insurance_provider = Column(String)
+    insurance_policy_no = Column(String)
+    insurance_valid_till = Column(String)
+    insurance_tpa = Column(String)

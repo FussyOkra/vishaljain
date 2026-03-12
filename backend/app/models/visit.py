@@ -16,6 +16,11 @@ class Visit(Base):
     facility_name = Column(String)
     district = Column(String)
     state = Column(String)
+    
+    # Provider details
+    doctor_name = Column(String, nullable=True)
+    specialization = Column(String, nullable=True) # e.g. Cardiologist
+    attachments = Column(String, nullable=True)    # JSON string of URLs
 
     # Medical details
     visit_type = Column(String)               # OPD / Emergency / Follow-up

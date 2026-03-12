@@ -9,3 +9,9 @@ ocr_docs/
 prescriptions/
 *.sqlite3
 *.db
+serviceAccountKey.json
+otp_debug.txt
+swasth_id_app/android/build/
+swasth_id_app/build_v2/
+swasth_id_app/build_locked_*/
+swasth_id_app/build_old_*/

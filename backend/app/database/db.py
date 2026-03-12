@@ -5,7 +5,7 @@ from app.database.base import Base
 from app.models.profile import Profile
 from app.models.health_id import HealthID
 
-DATABASE_URL = "sqlite:///./migrant.db"
+DATABASE_URL = "sqlite:///./swasth_v2.db"
 
 engine = create_engine(
     DATABASE_URL,

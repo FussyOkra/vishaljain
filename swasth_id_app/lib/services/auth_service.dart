@@ -46,7 +46,13 @@ class AuthService {
       print('📩 Response: ${response.statusCode} - ${response.body}');
 
       if (response.statusCode == 200) {
-        return {'success': true};
+        final data = jsonDecode(response.body);
+        return {
+          'success': true,
+          'is_existing_user': data['is_existing_user'],
+          'health_id': data['health_id'],
+          'message': data['message'] ?? 'Verified'
+        };
       } else {
         final data = jsonDecode(response.body);
         return {
