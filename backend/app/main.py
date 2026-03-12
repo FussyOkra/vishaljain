@@ -12,8 +12,11 @@ from dotenv import load_dotenv
 # -----------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENV_PATH = os.path.join(BASE_DIR, ".env")
-print(f"Loading env from: {ENV_PATH}")
-load_dotenv(dotenv_path=ENV_PATH)
+if os.path.exists(ENV_PATH):
+    print(f"Loading env from: {ENV_PATH}")
+    load_dotenv(dotenv_path=ENV_PATH)
+else:
+    print("No .env file found. Using environment variables.")
 
 print("AUTH TOKEN:", os.getenv("MESSAGE_CENTRAL_AUTH_TOKEN"))
 print("CUSTOMER ID:", os.getenv("MESSAGE_CENTRAL_CUSTOMER_ID"))
@@ -53,12 +56,19 @@ if GEMINI_API_KEY:
 # -----------------------
 # OCR CONFIG
 # -----------------------
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+if os.name == 'nt': # Windows
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+else: # Linux/Railway
+    pytesseract.pytesseract.tesseract_cmd = "tesseract"
 
 # -----------------------
 # APP INIT
 # -----------------------
 app = FastAPI(title="Swasth ID API")
+
+@app.get("/")
+def health_check():
+    return {"status": "healthy", "service": "Swasth ID API"}
 
 # -----------------------
 # CORS CONFIG (CRITICAL FOR WEB)
