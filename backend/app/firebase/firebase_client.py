@@ -6,7 +6,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 key_path = os.path.join(BASE_DIR, "serviceAccountKey.json")
 
 print(f"LOADING FIREBASE KEY FROM: {key_path}")
-cred = credentials.Certificate(key_path)
-firebase_admin.initialize_app(cred)
 
-db = firestore.client()
+if os.path.exists(key_path):
+    try:
+        cred = credentials.Certificate(key_path)
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        print("Successfully initialized Firebase Admin")
+    except Exception as e:
+        print(f"⚠️ Failed to initialize Firebase: {e}")
+        db = None
+else:
+    print(f"⚠️ Firebase service account key not found at {key_path}. Firestore features will be disabled.")
+    db = None
