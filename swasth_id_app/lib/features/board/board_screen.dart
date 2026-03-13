@@ -7,19 +7,17 @@ import 'package:swasth_id_app/features/board/widgets/body_health_card.dart';
 import 'package:swasth_id_app/features/board/widgets/health_status_card.dart';
 import 'package:swasth_id_app/features/board/widgets/quick_actions_grid.dart';
 import 'package:swasth_id_app/features/board/widgets/recent_visits_card.dart';
-import 'package:swasth_id_app/features/board/widgets/medication_reminder_card.dart';
-import 'package:swasth_id_app/features/board/widgets/appointment_card.dart';
-import 'package:swasth_id_app/features/board/widgets/vaccination_tracker_card.dart';
 import 'package:swasth_id_app/services/api_service.dart';
 import 'package:swasth_id_app/features/records/services/visit_service.dart';
 import 'package:swasth_id_app/widgets/gradient_scaffold.dart';
-import 'package:swasth_id_app/widgets/animate_in.dart';
+// Import feature screens for navigation
+// import 'package:swasth_id_app/features/records/records_screen.dart'; // Just tab switching
+// import 'package:swasth_id_app/features/ai_chat/ai_chat_screen.dart'; // If exists
 
 class BoardScreen extends StatefulWidget {
   final Function(int)? onTabChange; // Callback to switch bottom nav tabs
-  final bool isVisible;
 
-  const BoardScreen({super.key, this.onTabChange, this.isVisible = false});
+  const BoardScreen({super.key, this.onTabChange});
 
   @override
   State<BoardScreen> createState() => _BoardScreenState();
@@ -27,7 +25,6 @@ class BoardScreen extends StatefulWidget {
 
 class _BoardScreenState extends State<BoardScreen> {
   bool _isLoading = true;
-  bool _showTip = false; // Ephemeral tip state
   String? _healthId;
   String _mobile = ''; // Store mobile for display
   Map<String, dynamic>? _profileData;
@@ -40,37 +37,6 @@ class _BoardScreenState extends State<BoardScreen> {
   void initState() {
     super.initState();
     _fetchBoardData();
-    _triggerTip();
-  }
-
-  @override
-  void didUpdateWidget(BoardScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isVisible && !oldWidget.isVisible) {
-      _triggerTip();
-    }
-  }
-
-  void _triggerTip() {
-    // Reset first to ensure animation replays if called rapidly
-    setState(() => _showTip = false);
-    
-    // Show tip after small delay, hide after 5 seconds
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (mounted && widget.isVisible) {
-         setState(() => _showTip = true);
-         
-         Future.delayed(const Duration(seconds: 4), () {
-           if (mounted) setState(() => _showTip = false);
-         });
-      } else if (mounted) {
-         // Fallback if visibility check not strictly enforced or first load
-         setState(() => _showTip = true);
-         Future.delayed(const Duration(seconds: 4), () {
-           if (mounted) setState(() => _showTip = false);
-         });
-      }
-    });
   }
 
   // Helper helper to safe parse numbers
@@ -182,200 +148,123 @@ class _BoardScreenState extends State<BoardScreen> {
     return GradientScaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Stack(
-              children: [
-                // 1. Main Content
-                RefreshIndicator(
-                  onRefresh: _fetchBoardData,
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(20, 60, 20, 100),
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          : RefreshIndicator(
+              onRefresh: _fetchBoardData,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(16, 60, 16, 100),
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Header
-                        AnimateIn(
-                          delay: const Duration(milliseconds: 100),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Welcome Back,',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.textSecondary.withOpacity(0.8),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  const Text(
-                                    'My Health Board',
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textColor,
-                                      letterSpacing: 0.5,
-                                    ),
-                                  ),
-                                ],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome Back,',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.textSecondary.withOpacity(0.8),
+                                fontWeight: FontWeight.w500,
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 8,
-                                      offset: const Offset(0, 4)
-                                    )
-                                  ]
-                                ),
-                                child: const CircleAvatar(
-                                  radius: 24,
-                                  backgroundColor: AppColors.primaryColor,
-                                  child: Icon(Icons.person, color: Colors.white),
-                                ),
+                            ),
+                            const Text(
+                              'My Health Board',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primaryColor,
+                                letterSpacing: 0.5,
                               ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              'User: $_mobile', // Debug info
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.textSecondary.withOpacity(0.5),
+                              ),
+                            ),
+                          ],
                         ),
-                        // 1. Body Health (BMI + Ideal Weight)
-                        AnimateIn(
-                          delay: const Duration(milliseconds: 200),
-                          child: BodyHealthCard(
-                            heightCm: _safeParseDouble(_profileData?['height_cm']),
-                            weightKg: _safeParseDouble(_profileData?['weight_kg']),
-                            age: _age, 
-                            bmi: _safeParseDouble(_profileData?['bmi']),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        
-                        // 2. Health Status (District Alert)
-                        AnimateIn(
-                          delay: const Duration(milliseconds: 250),
-                          child: HealthStatusCard(
-                            district: _district,
-                            alertLevel: _alertLevel,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        // 3. Medication Reminder
-                        const AnimateIn(
-                          delay: Duration(milliseconds: 300),
-                          child: MedicationReminderCard(),
-                        ),
-                        const SizedBox(height: 20),
-                        
-                        // 4. Appointment
-                        const AnimateIn(
-                          delay: Duration(milliseconds: 350),
-                          child: AppointmentCard(),
-                        ),
-                        const SizedBox(height: 20),
-                        
-                        // 5. Vaccination Tracker
-                         const AnimateIn(
-                          delay: Duration(milliseconds: 400),
-                          child: VaccinationTrackerCard(),
-                        ),
-                        const SizedBox(height: 20),
-
-                        // 6. Activity (Real Pedometer)
-                        const AnimateIn(
-                          delay: Duration(milliseconds: 450),
-                          child: ActivityCard(),
-                        ),
-                        const SizedBox(height: 20),
-
-                        // 7. Recent Visits
-                        AnimateIn(
-                          delay: const Duration(milliseconds: 500),
-                          child: RecentVisitsCard(
-                            visits: _visits,
-                            onViewAll: _navigateToRecords,
-                          ),
-                        ),
-                        const SizedBox(height: 32),
-
-                        // 8. Quick Actions
-                        AnimateIn(
-                          delay: const Duration(milliseconds: 600),
-                          child: QuickActionsGrid(
-                            onRecordsTap: _navigateToRecords,
-                            onAiTap: () {
-                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Opening Swasth AI...')),
-                              );
-                            },
-                            onUploadTap: () {
-                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Upload Document feature coming soon')),
-                              );
-                            },
-                            onPhcTap: () {
-                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Finding nearby PHC...')),
-                              );
-                            },
-                          ),
-                        ),
-                        
-                        // Padding
-                        const SizedBox(height: 60),
+                        // Profile Icon & Logout
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.logout, color: Colors.redAccent),
+                              onPressed: _handleLogout,
+                              tooltip: 'Logout',
+                            ),
+                            Container(
+                               padding: const EdgeInsets.all(2),
+                               decoration: BoxDecoration(
+                                 border: Border.all(color: AppColors.primaryColor, width: 2),
+                                 shape: BoxShape.circle,
+                               ),
+                               child: const CircleAvatar(
+                                 radius: 20,
+                                 backgroundColor: Colors.grey, 
+                                 child: Icon(Icons.person, color: Colors.white),
+                               ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
-                  ),
-                ),
+                    const SizedBox(height: 24),
 
-                // 2. Ephemeral Health Tip Overlay
-                if (_showTip)
-                  TweenAnimationBuilder<double>(
-                    tween: Tween(begin: -100, end: 50),
-                    duration: const Duration(milliseconds: 600),
-                    curve: Curves.easeOutBack,
-                    builder: (context, value, child) {
-                      return Positioned(
-                        top: value,
-                        left: 20,
-                        right: 20,
-                        child: Material(
-                          elevation: 8,
-                          borderRadius: BorderRadius.circular(16),
-                          color: Colors.transparent,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade800,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.lightbulb, color: Colors.yellow, size: 20),
-                                const SizedBox(width: 12),
-                                const Expanded(
-                                  child: Text(
-                                    "Tip: Drink water 30 mins before meals!",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () => setState(() => _showTip = false),
-                                  child: const Icon(Icons.close, color: Colors.white70, size: 18),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-              ],
+                    // 1. Health Status (District Alert)
+                    HealthStatusCard(
+                      district: _district,
+                      alertLevel: _alertLevel,
+                    ),
+                    const SizedBox(height: 16),
+
+                    // 2. Body Health (BMI + Ideal Weight)
+                    BodyHealthCard(
+                      heightCm: _safeParseDouble(_profileData?['height_cm']),
+                      weightKg: _safeParseDouble(_profileData?['weight_kg']),
+                      age: _age, 
+                      bmi: _safeParseDouble(_profileData?['bmi']),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // 3. Activity (Real Pedometer)
+                    const ActivityCard(),
+                    const SizedBox(height: 16),
+
+                    // 4. Recent Visits (Advice + Single)
+                    RecentVisitsCard(
+                      visits: _visits,
+                      onViewAll: _navigateToRecords,
+                    ),
+                    const SizedBox(height: 24),
+
+                    // 5. Quick Actions
+                    QuickActionsGrid(
+                      onRecordsTap: _navigateToRecords,
+                      onAiTap: () {
+                         // Navigation logic for Swasth AI
+                         ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Opening Swasth AI...')),
+                        );
+                      },
+                      onUploadTap: () {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Upload Document feature coming soon')),
+                        );
+                      },
+                      onPhcTap: () {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Finding nearby PHC...')),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
     );
   }

@@ -16,19 +16,21 @@ class VisitService {
     required String state,
     required String visitType,
     required String chiefComplaint,
-    String? symptoms,
+    // Vitals
     double? temperature,
     String? bp,
     int? spo2,
+    // Vaccination
     bool vaccineGiven = false,
     String? vaccineName,
     String? nextDoseDate,
+    // Referral
     bool referred = false,
     String? referredTo,
     String? referralReason,
-    String? doctorName,
-    String? specialization,
   }) async {
+    // Note: Backend requires 'symptoms' but user didn't ask for it in UI.
+    // We send empty string or duplicate chiefComplaint to avoid 422.
     final Map<String, dynamic> queryParams = {
       'health_id': healthId,
       'facility_name': facilityName,
@@ -36,8 +38,9 @@ class VisitService {
       'state': state,
       'visit_type': visitType,
       'chief_complaint': chiefComplaint,
-      'symptoms': symptoms ?? chiefComplaint,
+      'symptoms': chiefComplaint, // Sending complaint as symptoms for now
       
+      // Optional fields
       if (temperature != null) 'temperature_c': temperature.toString(),
       if (bp != null) 'bp': bp,
       if (spo2 != null) 'spo2': spo2.toString(),
@@ -49,10 +52,8 @@ class VisitService {
       'referred': referred.toString(),
       if (referredTo != null) 'referred_to': referredTo,
       if (referralReason != null) 'referral_reason': referralReason,
-
-      if (doctorName != null) 'doctor_name': doctorName,
-      if (specialization != null) 'specialization': specialization,
     };
+
     final uri = Uri.parse('$baseUrl/visits/create').replace(queryParameters: queryParams);
 
     try {
@@ -60,62 +61,6 @@ class VisitService {
       
       if (response.statusCode == 200) {
         return {'success': true, 'data': jsonDecode(response.body)};
-      } else {
-        return {'success': false, 'message': response.body};
-      }
-    } catch (e) {
-      return {'success': false, 'message': e.toString()};
-    }
-  }
-
-  // 1.1 Update Visit
-  static Future<Map<String, dynamic>> updateVisit({
-    required String visitId,
-    String? facilityName,
-    String? district,
-    String? state,
-    String? visitType,
-    String? chiefComplaint,
-    String? symptoms,
-    double? temperature,
-    String? bp,
-    int? spo2,
-    bool? vaccineGiven,
-    String? vaccineName,
-    String? nextDoseDate,
-    bool? referred,
-    String? referredTo,
-    String? referralReason,
-    String? doctorName,
-    String? specialization,
-  }) async {
-    final Map<String, dynamic> queryParams = {
-      'visit_id': visitId,
-      if (facilityName != null) 'facility_name': facilityName,
-      if (district != null) 'district': district,
-      if (state != null) 'state': state,
-      if (visitType != null) 'visit_type': visitType,
-      if (chiefComplaint != null) 'chief_complaint': chiefComplaint,
-      if (symptoms != null) 'symptoms': symptoms,
-      if (temperature != null) 'temperature_c': temperature.toString(),
-      if (bp != null) 'bp': bp,
-      if (spo2 != null) 'spo2': spo2.toString(),
-      if (vaccineGiven != null) 'vaccine_given': vaccineGiven.toString(),
-      if (vaccineName != null) 'vaccine_name': vaccineName,
-      if (nextDoseDate != null) 'next_dose_due_date': nextDoseDate,
-      if (referred != null) 'referred': referred.toString(),
-      if (referredTo != null) 'referred_to': referredTo,
-      if (referralReason != null) 'referral_reason': referralReason,
-      if (doctorName != null) 'doctor_name': doctorName,
-      if (specialization != null) 'specialization': specialization,
-    };
-
-    final uri = Uri.parse('$baseUrl/visits/update').replace(queryParameters: queryParams);
-
-    try {
-      final response = await http.post(uri);
-      if (response.statusCode == 200) {
-        return {'success': true, 'message': 'Visit updated successfully'};
       } else {
         return {'success': false, 'message': response.body};
       }

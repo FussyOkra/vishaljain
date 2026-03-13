@@ -57,20 +57,12 @@ class _ActivityCardState extends State<ActivityCard> {
     const int goal = 6000;
     final double progress = (currentSteps / goal).clamp(0.0, 1.0);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
+    return Card(
+      elevation: 4,
+      shadowColor: Colors.black.withOpacity(0.1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             // Header
@@ -79,56 +71,28 @@ class _ActivityCardState extends State<ActivityCard> {
               children: [
                 const Text(
                   'Daily Activity',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textColor),
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                         ScaffoldMessenger.of(context).showSnackBar(
-                           const SnackBar(content: Text('Syncing with Wearable...')),
-                         );
-                         // Simulate sync delay
-                         Future.delayed(const Duration(seconds: 2), () {
-                            if(context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Synced with Google Fit!')),
-                              );
-                            }
-                         });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.1),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.watch_rounded, size: 16, color: Colors.blue),
-                      ),
+                GestureDetector(
+                  onTap: _requestPermission,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.teal.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: _requestPermission,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: _status == 'Walking' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.directions_run, size: 14, color: Colors.teal),
+                        SizedBox(width: 4),
+                        Text(
+                          _status,
+                          style: TextStyle(fontSize: 12, color: Colors.teal, fontWeight: FontWeight.bold),
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(_status == 'Walking' ? Icons.directions_run : Icons.accessibility_new, size: 14, color: _status == 'Walking' ? Colors.green : Colors.orange),
-                            const SizedBox(width: 4),
-                            Text(
-                              _status,
-                              style: TextStyle(fontSize: 12, color: _status == 'Walking' ? Colors.green : Colors.orange, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -146,7 +110,7 @@ class _ActivityCardState extends State<ActivityCard> {
                       child: CircularProgressIndicator(
                         value: progress,
                         strokeWidth: 8,
-                        backgroundColor: Colors.grey[100],
+                        backgroundColor: Colors.grey[200],
                         valueColor: const AlwaysStoppedAnimation<Color>(AppColors.tealAccent),
                       ),
                     ),

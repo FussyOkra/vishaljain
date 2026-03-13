@@ -3,9 +3,6 @@ import 'package:swasth_id_app/core/constants/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:swasth_id_app/features/auth/role_selection_screen.dart';
 import 'package:swasth_id_app/features/board/board_screen.dart';
-import 'package:swasth_id_app/features/auth/role_selection_screen.dart';
-import 'package:swasth_id_app/features/board/board_screen.dart'; // Keep if used elsewhere or remove
-import 'package:swasth_id_app/navigation/bottom_nav.dart';
 import 'package:swasth_id_app/services/auth_service.dart';
 import 'package:swasth_id_app/widgets/glass_container.dart';
 import 'package:swasth_id_app/widgets/gradient_scaffold.dart';
@@ -55,27 +52,21 @@ class _OtpScreenState extends State<OtpScreen> {
       print('DEBUG: Saved mobile ${widget.mobile} to prefs');
 
       // SMART LOGIN: Check if user exists
-      print('DEBUG: VerifyOTP Result - is_existing_user: ${result['is_existing_user']}');
-      
-         if (result['is_existing_user'] == true) {
-            print('✅ DEBUG: Existing user detected. Redirecting to Board.');
-            // Fix: Persist role and registration status for existing users
-            await prefs.setString('role', 'Health Worker');
-            await prefs.setBool('is_registered', true);
-
-            if (result['health_id'] != null) {
-               await prefs.setString('health_id', result['health_id']);
-            }
-            
-            if (!mounted) return;
-            // Navigate to Home (BottomNav)
-            Navigator.pushAndRemoveUntil(
-               context,
-               MaterialPageRoute(builder: (context) => const BottomNav()),
-               (route) => false,
-            );
-         } else {
-         print('🆕 DEBUG: New user detected. Redirecting to Registration.');
+      if (result['is_existing_user'] == true) {
+         print('DEBUG: Existing user detected. Redirecting to Board.');
+         if (result['health_id'] != null) {
+            await prefs.setString('health_id', result['health_id']);
+         }
+         
+         if (!mounted) return;
+         // Navigate to Board
+         Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const BoardScreen()),
+            (route) => false,
+         );
+      } else {
+         print('DEBUG: New user detected. Redirecting to Registration.');
          if (!mounted) return;
          // Navigate to Registration
          Navigator.pushReplacement(

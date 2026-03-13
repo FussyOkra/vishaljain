@@ -17,11 +17,6 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
   final _stateController = TextEditingController();
   final _complaintController = TextEditingController();
   
-  // Provider Details
-  final _doctorNameController = TextEditingController();
-  final _specializationController = TextEditingController(); 
-  final _attachmentsController = TextEditingController(); 
-  
   // Vitals
   final _tempController = TextEditingController();
   final _bpController = TextEditingController();
@@ -40,18 +35,6 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
   String _visitType = 'OPD';
   bool _isLoading = false;
 
-  @override
-  void dispose() {
-    _facilityController.dispose();
-    _districtController.dispose();
-    _stateController.dispose();
-    _complaintController.dispose();
-    _doctorNameController.dispose();
-    _specializationController.dispose();
-    // _attachmentsController.dispose(); // Removed
-    super.dispose();
-  }
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     
@@ -64,10 +47,6 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
       state: _stateController.text.trim(),
       visitType: _visitType,
       chiefComplaint: _complaintController.text.trim(),
-      // Send new fields
-      doctorName: _doctorNameController.text.trim().isNotEmpty ? _doctorNameController.text.trim() : null,
-      specialization: _specializationController.text.trim().isNotEmpty ? _specializationController.text.trim() : null,
-      attachments: null, // Removed from UI as requested
       
       temperature: double.tryParse(_tempController.text.trim()),
       bp: _bpController.text.trim().isEmpty ? null : _bpController.text.trim(),
@@ -145,65 +124,7 @@ class _CreateVisitScreenState extends State<CreateVisitScreen> {
                 maxLines: 3,
                 validator: (v) => v!.isEmpty ? 'Required' : null,
               ),
-              
-              const SizedBox(height: 20),
-              const Text('Provider Details', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              
-              TextFormField(
-                controller: _doctorNameController,
-                decoration: const InputDecoration(labelText: 'Doctor Name', hintText: 'Dr. Example'),
-              ),
-              const SizedBox(height: 12),
-              
-              // REPLACED: Specialization with Autocomplete
-              Autocomplete<String>(
-                optionsBuilder: (TextEditingValue textEditingValue) {
-                  if (textEditingValue.text == '') {
-                    return const Iterable<String>.empty();
-                  }
-                  const List<String> options = [
-                    'General Physician',
-                    'Cardiologist',
-                    'Dermatologist',
-                    'Pediatrician',
-                    'Orthopedist',
-                    'Gynecologist',
-                    'Neurologist',
-                    'Psychiatrist',
-                    'ENT Specialist',
-                    'Dentist'
-                  ];
-                  return options.where((String option) {
-                    return option.toLowerCase().contains(textEditingValue.text.toLowerCase());
-                  });
-                },
-                onSelected: (String selection) {
-                  _specializationController.text = selection;
-                },
-                fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-                   // Sync the text editing controller
-                   controller.text = _specializationController.text;
-                   // Listen to changes to keep them in sync if user types manually
-                   controller.addListener(() {
-                      _specializationController.text = controller.text;
-                   });
-                   
-                   return TextFormField(
-                     controller: controller,
-                     focusNode: focusNode,
-                     onFieldSubmitted: (String value) {
-                       onFieldSubmitted();
-                     },
-                     decoration: const InputDecoration(
-                       labelText: 'Specialization',
-                       hintText: 'Type to search (e.g. Cardio)',
-                       suffixIcon: Icon(Icons.arrow_drop_down),
-                     ),
-                   );
-                },
-              ),
-              // REMOVED: Attachments Field
-              
+
               const SizedBox(height: 20),
               
               const Text('Vitals', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),

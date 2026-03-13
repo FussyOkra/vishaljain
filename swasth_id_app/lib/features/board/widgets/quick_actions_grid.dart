@@ -71,18 +71,16 @@ class QuickActionsGrid extends StatelessWidget {
   ) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(16),
       child: Container(
         decoration: BoxDecoration(
-          // Theme-based background (Primary Blue Tint)
-          color: AppColors.primaryColor.withOpacity(0.08),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.primaryColor.withOpacity(0.2), width: 1.5),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryColor.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -90,32 +88,20 @@ class QuickActionsGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: color.withOpacity(0.1),
                 shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                   color: color.withOpacity(0.3), // Icon color glow
-                   blurRadius: 8,
-                   offset: const Offset(0, 2)
-                  )
-                ]
               ),
               child: Icon(icon, color: color, size: 28),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Text(
               label,
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-                color: AppColors.textColor,
-                letterSpacing: 0.3,
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
               ),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

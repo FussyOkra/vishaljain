@@ -6,8 +6,6 @@ import 'package:swasth_id_app/navigation/bottom_nav.dart';
 import 'package:swasth_id_app/features/doctor/doctor_home_screen.dart';
 import 'package:swasth_id_app/features/worker/personal_details_screen.dart';
 
-final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
-
 void main() {
   runApp(const MyApp());
 }
@@ -17,20 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<ThemeMode>(
-      valueListenable: themeNotifier,
-      builder: (context, currentMode, _) {
-        return MaterialApp(
-          title: 'Swasth ID',
-          theme: AppTheme.lightTheme,
-          darkTheme: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(primary: Colors.teal),
-             scaffoldBackgroundColor: const Color(0xFF121212),
-          ),
-          themeMode: currentMode,
-          home: const AuthWrapper(),
-        );
-      },
+    return MaterialApp(
+      title: 'Swasth ID',
+      theme: AppTheme.lightTheme,
+      home: const AuthWrapper(),
     );
   }
 }
@@ -59,7 +47,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final isRegistered = prefs.getBool('is_registered') ?? false;
 
     if (role != null && mobile != null) {
-      print('AUTH DEBUG: Found session - Role: $role, Mobile: $mobile, IsRegistered: $isRegistered');
       if (role == 'Doctor') {
         _home = const DoctorHomeScreen();
       } else {
@@ -71,7 +58,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
         }
       }
     } else {
-      print('AUTH DEBUG: No session found. Redirecting to Login.');
       _home = const LoginScreen();
     }
 

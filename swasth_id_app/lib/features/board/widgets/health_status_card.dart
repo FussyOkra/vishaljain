@@ -24,84 +24,70 @@ class HealthStatusCard extends StatelessWidget {
 
     switch (alertLevel.toUpperCase()) {
       case 'HIGH':
-        cardColor = const Color(0xFFFF5252); // Red Accent
+        cardColor = const Color(0xFFE57373); // Red lighten-2
+        textColor = Colors.white;
         icon = Icons.warning_rounded;
         statusTitle = 'High Alert';
         message = 'Significant illness cases reported in $district. Take precautions.';
         break;
       case 'MEDIUM':
-        cardColor = const Color(0xFFFFA726); // Orange
+        cardColor = const Color(0xFFFFF176); // Yellow lighten-2
+        textColor = Colors.black87;
         icon = Icons.info_outline;
         statusTitle = 'District Under Watch';
         message = 'Seasonal illness cases reported in $district. Stay cautious.';
         break;
       case 'LOW':
       default:
-        cardColor = const Color(0xFF66BB6A); // Green
-        icon = Icons.verified_user_rounded;
+        cardColor = const Color(0xFFA5D6A7); // Green lighten-2
+        textColor = Colors.black87;
+        icon = Icons.verified_user_outlined;
         statusTitle = 'You are Safe';
         message = 'No major health alerts in $district.';
         break;
     }
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [cardColor, cardColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: cardColor.withOpacity(0.4),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(icon, color: Colors.white, size: 32),
+    return Card(
+      color: cardColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.3),
+                shape: BoxShape.circle,
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      statusTitle,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                      ),
+              child: Icon(icon, color: textColor, size: 28),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    statusTitle,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
                     ),
-                    const SizedBox(height: 6),
-                    Text(
-                      message,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white.withOpacity(0.9),
-                        height: 1.2,
-                      ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    message,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: textColor.withOpacity(0.9),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
