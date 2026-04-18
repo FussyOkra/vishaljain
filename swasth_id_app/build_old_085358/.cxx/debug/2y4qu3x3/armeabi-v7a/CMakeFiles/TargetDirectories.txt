@@ -1,0 +1,2 @@
+C:/Users/visha/OneDrive/Desktop/kerala/swasth_id_app/build/.cxx/debug/2y4qu3x3/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/visha/OneDrive/Desktop/kerala/swasth_id_app/build/.cxx/debug/2y4qu3x3/armeabi-v7a/CMakeFiles/rebuild_cache.dir

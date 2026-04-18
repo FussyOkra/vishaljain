@@ -1,0 +1,77 @@
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589315","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"5589e9e8-7b29-4a71-ab56-9b5171f81860","flowType":"SMS","referenceId":"e983307b-ebe7-4977-9a38-6ad7797b49ed"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589374","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"a19e490b-1ac8-45d0-b941-e5f8affcb7c8","flowType":"SMS","referenceId":"88d1eebd-bf7d-4e73-9f29-ce77cca29ce7"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589624","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"021c484d-c5b6-4ba7-a103-f9e50587d877","flowType":"SMS","referenceId":"a79e5a00-34a4-4baa-9462-7760d7289646"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589660","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"98802337-b1b7-453f-af36-0711111785e7","flowType":"SMS","referenceId":"0aa9fc48-087b-42b1-b1a9-af15f64b448c"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589839","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"70ad4dcb-afa0-4a55-a63f-2a0cd89480af","flowType":"SMS","referenceId":"f072501b-238b-4d02-923a-dd51c3556c87"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589877","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"02c2a744-079f-4b97-87a9-267527e2657a","flowType":"SMS","referenceId":"55fc23d0-8981-419e-bc73-d54d0794b96f"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589915","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"5d76c097-81e6-47b2-b9f6-5e9931aba20c","flowType":"SMS","referenceId":"7bacb7e0-17a3-447d-a8dc-e3915e616a17"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589924","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"faf76df9-7f50-435f-832c-cfaa43efcf4e","flowType":"SMS","referenceId":"7b87be1e-82c7-46b8-adb3-f21c0af617ca"}}
+
+--- SEND OTP ---
+Mobile: 9444529010
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589951","mobileNumber":"9444529010","responseCode":"200","timeout":"60.0","transactionId":"79053163-ee30-4c89-aee2-6edd53501d7f","flowType":"SMS","referenceId":"25deec68-d607-4c67-8f59-8b0abe109b38"}}
+
+--- SEND OTP ---
+Mobile: 9840944498
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4589961","mobileNumber":"9840944498","responseCode":"200","timeout":"60.0","transactionId":"e98f0e0b-75c3-417a-9030-762f988d1809","flowType":"SMS","referenceId":"3d7c94ff-e766-46fd-9ee2-16bba7e35c11"}}
+
+--- SEND OTP ---
+Mobile: 9840944498
+Token present: True
+Customer ID present: True
+Status: 200
+Response: {"responseCode":200,"message":"SUCCESS","data":{"verificationId":"4590076","mobileNumber":"9840944498","responseCode":"200","timeout":"60.0","transactionId":"a1ab129f-c478-4eeb-8abf-6b95edf3532e","flowType":"SMS","referenceId":"54802d34-95ab-4031-9f09-7d7ada8c07ed"}}

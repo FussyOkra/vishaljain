@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:swasth_id_app/features/doctor/patient_details_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:swasth_id_app/features/auth/login_screen.dart';
 
 class DoctorHomeScreen extends StatefulWidget {
   const DoctorHomeScreen({super.key});
@@ -30,7 +32,27 @@ class _DoctorHomeScreenState extends State<DoctorHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Doctor Dashboard')),
+      appBar: AppBar(
+        title: const Text('Doctor Dashboard'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+               // Logout Logic
+               final prefs = await SharedPreferences.getInstance();
+               await prefs.clear(); // Clear all session data OR just remove 'role'
+               
+               if (context.mounted) {
+                 Navigator.pushAndRemoveUntil(
+                   context,
+                   MaterialPageRoute(builder: (context) => const LoginScreen()),
+                   (route) => false,
+                 );
+               }
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

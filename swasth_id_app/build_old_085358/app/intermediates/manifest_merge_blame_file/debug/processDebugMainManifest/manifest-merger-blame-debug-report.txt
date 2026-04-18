@@ -1,0 +1,439 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.swasth_id_app"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="36" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:2:1-62
+15-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:2:18-60
+16    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+16-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:3:5-78
+16-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:3:22-76
+17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:4:5-78
+17-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:4:22-76
+18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+18-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:5:5-80
+18-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:5:22-78
+19    <!--
+20 Required to query activities that can process text, see:
+21         https://developer.android.com/training/package-visibility and
+22         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+23
+24         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+25    -->
+26    <queries>
+26-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:49:5-66:15
+2743:         
+28        <intent>
+28-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:50:13-53:22
+2944:             
+30            <action android:name="android.intent.action.PROCESS_TEXT" />
+30-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:51:17-76
+30-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:51:25-74
+3145:             
+32            <data android:mimeType="text/plain" />
+32-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:17-54
+32-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:23-52
+3346:         
+34        </intent>
+35        <intent>
+35-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:54:11-57:20
+36            <action android:name="android.intent.action.VIEW" />
+36-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:15-67
+36-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:23-64
+37
+38            <data android:scheme="tel" />
+38-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:17-54
+39        </intent>
+40        <intent>
+40-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:58:11-61:20
+41            <action android:name="android.intent.action.VIEW" />
+41-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:15-67
+41-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:23-64
+42
+43            <data android:scheme="http" />
+43-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:17-54
+44        </intent>
+45        <intent>
+45-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:62:11-65:20
+46            <action android:name="android.intent.action.VIEW" />
+46-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:15-67
+46-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:55:23-64
+47
+48            <data android:scheme="https" />
+48-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:17-54
+49        </intent>
+50        <intent>
+50-->[:file_picker] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\file_picker\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:18
+51            <action android:name="android.intent.action.GET_CONTENT" />
+51-->[:file_picker] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\file_picker\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-72
+51-->[:file_picker] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\file_picker\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:21-69
+52
+53            <data android:mimeType="*/*" />
+53-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:17-54
+53-->C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\android\app\src\main\AndroidManifest.xml:52:23-52
+54        </intent> <!-- Needs to be explicitly declared on Android R+ -->
+55        <package android:name="com.google.android.apps.maps" />
+55-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:29:7-61
+55-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:29:16-59
+56    </queries>
+57
+58    <uses-permission android:name="android.permission.CAMERA" />
+58-->[:mobile_scanner] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\mobile_scanner\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-65
+58-->[:mobile_scanner] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\mobile_scanner\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-62
+59
+60    <uses-feature
+60-->[:mobile_scanner] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\mobile_scanner\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-11:36
+61        android:name="android.hardware.camera"
+61-->[:mobile_scanner] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\mobile_scanner\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:9-47
+62        android:required="false" /> <!-- Include required permissions for Google Maps API to run. -->
+62-->[:mobile_scanner] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\mobile_scanner\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:9-33
+63    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+63-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:20:5-78
+63-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:20:22-76
+64
+65    <uses-feature
+65-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:22:5-24:33
+66        android:glEsVersion="0x00020000"
+66-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:23:8-40
+67        android:required="true" />
+67-->[com.google.android.gms:play-services-maps:20.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\cd38a4ccda3ef61d551075ed5fd40ba2\transformed\jetified-play-services-maps-20.0.0\AndroidManifest.xml:24:8-31
+68
+69    <permission
+69-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:22:5-24:47
+70        android:name="com.example.swasth_id_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+70-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:23:9-81
+71        android:protectionLevel="signature" />
+71-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:24:9-44
+72
+73    <uses-permission android:name="com.example.swasth_id_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+73-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:26:5-97
+73-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:26:22-94
+74
+75    <application
+76        android:name="android.app.Application"
+77        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+77-->[androidx.core:core:1.17.0] C:\Users\visha\.gradle\caches\8.12\transforms\5196bc7ee2d9a4a01e420b54f5647781\transformed\core-1.17.0\AndroidManifest.xml:28:18-86
+78        android:debuggable="true"
+79        android:extractNativeLibs="false"
+80        android:icon="@mipmap/ic_launcher"
+81        android:label="swasth_id_app"
+82        android:usesCleartextTraffic="true" >
+83        <activity
+84            android:name="com.example.swasth_id_app.MainActivity"
+85            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+86            android:exported="true"
+87            android:hardwareAccelerated="true"
+88            android:launchMode="singleTop"
+89            android:taskAffinity=""
+90            android:theme="@style/LaunchTheme"
+91            android:windowSoftInputMode="adjustResize" >
+92
+93            <!--
+94                 Specifies an Android theme to apply to this Activity as soon as
+95                 the Android process has started. This theme is visible to the user
+96                 while the Flutter UI initializes. After that, this theme continues
+97                 to determine the Window background behind the Flutter UI.
+98            -->
+99            <meta-data
+100                android:name="io.flutter.embedding.android.NormalTheme"
+101                android:resource="@style/NormalTheme" />
+102
+103            <intent-filter>
+104                <action android:name="android.intent.action.MAIN" />
+105
+106                <category android:name="android.intent.category.LAUNCHER" />
+107            </intent-filter>
+108        </activity>
+109        <!--
+110             Don't delete the meta-data below.
+111             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+112        -->
+113        <meta-data
+114            android:name="flutterEmbedding"
+115            android:value="2" />
+116
+117        <!-- Google Maps API Key (User must replace this) -->
+118        <meta-data
+119            android:name="com.google.android.geo.API_KEY"
+120            android:value="AIzaSyBxIj_cwjFTdoqmnKAZ2iTV-YYH2JasBsY" />
+121
+122        <service
+122-->[:geolocator_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\geolocator_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:56
+123            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+123-->[:geolocator_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\geolocator_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-77
+124            android:enabled="true"
+124-->[:geolocator_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\geolocator_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-35
+125            android:exported="false"
+125-->[:geolocator_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\geolocator_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-37
+126            android:foregroundServiceType="location" />
+126-->[:geolocator_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\geolocator_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-53
+127
+128        <provider
+128-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:9-17:20
+129            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+129-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-82
+130            android:authorities="com.example.swasth_id_app.flutter.image_provider"
+130-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-74
+131            android:exported="false"
+131-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-37
+132            android:grantUriPermissions="true" >
+132-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-47
+133            <meta-data
+133-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-16:75
+134                android:name="android.support.FILE_PROVIDER_PATHS"
+134-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-67
+135                android:resource="@xml/flutter_image_picker_file_paths" />
+135-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:17-72
+136        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+137        <service
+137-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:19:9-31:19
+138            android:name="com.google.android.gms.metadata.ModuleDependencies"
+138-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:20:13-78
+139            android:enabled="false"
+139-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:21:13-36
+140            android:exported="false" >
+140-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:22:13-37
+141            <intent-filter>
+141-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:24:13-26:29
+142                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+142-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:17-94
+142-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:25:25-91
+143            </intent-filter>
+144
+145            <meta-data
+145-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:28:13-30:36
+146                android:name="photopicker_activity:0:required"
+146-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:29:17-63
+147                android:value="" />
+147-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:30:17-33
+148        </service>
+149
+150        <activity
+150-->[:url_launcher_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\url_launcher_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-11:74
+151            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+151-->[:url_launcher_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\url_launcher_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-74
+152            android:exported="false"
+152-->[:url_launcher_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\url_launcher_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-37
+153            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+153-->[:url_launcher_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\url_launcher_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-71
+154
+155        <provider
+155-->[:printing] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\printing\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-16:20
+156            android:name="net.nfet.flutter.printing.PrintFileProvider"
+156-->[:printing] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\printing\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-71
+157            android:authorities="com.example.swasth_id_app.flutter.printing"
+157-->[:printing] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\printing\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:13-68
+158            android:exported="false"
+158-->[:printing] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\printing\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-37
+159            android:grantUriPermissions="true" >
+159-->[:printing] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\printing\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-47
+160            <meta-data
+160-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:13-16:75
+161                android:name="android.support.FILE_PROVIDER_PATHS"
+161-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:15:17-67
+162                android:resource="@xml/flutter_printing_file_paths" />
+162-->[:image_picker_android] C:\Users\visha\OneDrive\Desktop\kerala\swasth_id_app\build\image_picker_android\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:16:17-72
+163        </provider>
+164
+165        <meta-data
+165-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:24:9-26:69
+166            android:name="com.google.android.gms.version"
+166-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:25:13-58
+167            android:value="@integer/google_play_services_version" />
+167-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:26:13-66
+168
+169        <provider
+169-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:28:9-36:20
+170            android:name="androidx.startup.InitializationProvider"
+170-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:29:13-67
+171            android:authorities="com.example.swasth_id_app.androidx-startup"
+171-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:30:13-68
+172            android:exported="false" >
+172-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:31:13-37
+173            <meta-data
+173-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:33:13-35:52
+174                android:name="com.google.maps.android.utils.attribution.AttributionIdInitializer"
+174-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:34:17-98
+175                android:value="androidx.startup" />
+175-->[com.google.maps.android:android-maps-utils:4.0.0] C:\Users\visha\.gradle\caches\8.12\transforms\034594b8c364aa1b42b395276e69a5a6\transformed\jetified-android-maps-utils-4.0.0\AndroidManifest.xml:35:17-49
+176            <meta-data
+176-->[androidx.emoji2:emoji2:1.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\716619578a5b701918379d365fae0e22\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+177                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+177-->[androidx.emoji2:emoji2:1.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\716619578a5b701918379d365fae0e22\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
+178                android:value="androidx.startup" />
+178-->[androidx.emoji2:emoji2:1.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\716619578a5b701918379d365fae0e22\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+179            <meta-data
+179-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\visha\.gradle\caches\8.12\transforms\6cd9f11c0693c53dbd763888fd03198d\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+180                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+180-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\visha\.gradle\caches\8.12\transforms\6cd9f11c0693c53dbd763888fd03198d\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+181                android:value="androidx.startup" />
+181-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\visha\.gradle\caches\8.12\transforms\6cd9f11c0693c53dbd763888fd03198d\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+182            <meta-data
+182-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+183                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+183-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+184                android:value="androidx.startup" />
+184-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+185        </provider>
+186
+187        <service
+187-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:9:9-15:19
+188            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+188-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:10:13-91
+189            android:directBootAware="true"
+189-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:17:13-43
+190            android:exported="false" >
+190-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:11:13-37
+191            <meta-data
+191-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:12:13-14:85
+192                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+192-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:13:17-120
+193                android:value="com.google.firebase.components.ComponentRegistrar" />
+193-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.1] C:\Users\visha\.gradle\caches\8.12\transforms\d5318fadf7cdd8982ec9bbdb39f647ec\transformed\jetified-play-services-mlkit-barcode-scanning-18.3.1\AndroidManifest.xml:14:17-82
+194            <meta-data
+194-->[com.google.mlkit:vision-common:17.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\c532d3789bcfdf19d7e27991978decee\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+195                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+195-->[com.google.mlkit:vision-common:17.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\c532d3789bcfdf19d7e27991978decee\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:13:17-124
+196                android:value="com.google.firebase.components.ComponentRegistrar" />
+196-->[com.google.mlkit:vision-common:17.3.0] C:\Users\visha\.gradle\caches\8.12\transforms\c532d3789bcfdf19d7e27991978decee\transformed\jetified-vision-common-17.3.0\AndroidManifest.xml:14:17-82
+197            <meta-data
+197-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:20:13-22:85
+198                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+198-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:21:17-120
+199                android:value="com.google.firebase.components.ComponentRegistrar" />
+199-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:22:17-82
+200        </service>
+201
+202        <provider
+202-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:9:9-13:38
+203            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+203-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:10:13-78
+204            android:authorities="com.example.swasth_id_app.mlkitinitprovider"
+204-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:11:13-69
+205            android:exported="false"
+205-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:12:13-37
+206            android:initOrder="99" />
+206-->[com.google.mlkit:common:18.11.0] C:\Users\visha\.gradle\caches\8.12\transforms\5dd524cec1937c8cea00f191859e59fd\transformed\jetified-common-18.11.0\AndroidManifest.xml:13:13-35
+207
+208        <activity
+208-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\visha\.gradle\caches\8.12\transforms\1f9d6836a4ce4c889a5ab37de4ce7c95\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+209            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+209-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\visha\.gradle\caches\8.12\transforms\1f9d6836a4ce4c889a5ab37de4ce7c95\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+210            android:exported="false"
+210-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\visha\.gradle\caches\8.12\transforms\1f9d6836a4ce4c889a5ab37de4ce7c95\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+211            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+211-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\visha\.gradle\caches\8.12\transforms\1f9d6836a4ce4c889a5ab37de4ce7c95\transformed\jetified-play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+212        <!--
+213        Service for holding metadata. Cannot be instantiated.
+214        Metadata will be merged from other manifests.
+215        -->
+216        <service
+216-->[androidx.camera:camera-core:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\56b7b203607ed323df6397bdbde344e9\transformed\jetified-camera-core-1.5.1\AndroidManifest.xml:29:9-33:78
+217            android:name="androidx.camera.core.impl.MetadataHolderService"
+217-->[androidx.camera:camera-core:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\56b7b203607ed323df6397bdbde344e9\transformed\jetified-camera-core-1.5.1\AndroidManifest.xml:30:13-75
+218            android:enabled="false"
+218-->[androidx.camera:camera-core:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\56b7b203607ed323df6397bdbde344e9\transformed\jetified-camera-core-1.5.1\AndroidManifest.xml:31:13-36
+219            android:exported="false" >
+219-->[androidx.camera:camera-core:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\56b7b203607ed323df6397bdbde344e9\transformed\jetified-camera-core-1.5.1\AndroidManifest.xml:32:13-37
+220            <meta-data
+220-->[androidx.camera:camera-camera2:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\85b67eaf6f1643b224fa8eba86e33d1a\transformed\jetified-camera-camera2-1.5.1\AndroidManifest.xml:30:13-32:89
+221                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+221-->[androidx.camera:camera-camera2:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\85b67eaf6f1643b224fa8eba86e33d1a\transformed\jetified-camera-camera2-1.5.1\AndroidManifest.xml:31:17-103
+222                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+222-->[androidx.camera:camera-camera2:1.5.1] C:\Users\visha\.gradle\caches\8.12\transforms\85b67eaf6f1643b224fa8eba86e33d1a\transformed\jetified-camera-camera2-1.5.1\AndroidManifest.xml:32:17-86
+223        </service>
+224
+225        <uses-library
+225-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+226            android:name="androidx.window.extensions"
+226-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+227            android:required="false" />
+227-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+228        <uses-library
+228-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+229            android:name="androidx.window.sidecar"
+229-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+230            android:required="false" />
+230-->[androidx.window:window:1.2.0] C:\Users\visha\.gradle\caches\8.12\transforms\5e8f5cfe26704d9a811a08962d3f133f\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+231
+232        <receiver
+232-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+233            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+233-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+234            android:directBootAware="false"
+234-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+235            android:enabled="true"
+235-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+236            android:exported="true"
+236-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+237            android:permission="android.permission.DUMP" >
+237-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+238            <intent-filter>
+238-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+239                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+239-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+239-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+240            </intent-filter>
+241            <intent-filter>
+241-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+242                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+242-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+242-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+243            </intent-filter>
+244            <intent-filter>
+244-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+245                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+245-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+245-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+246            </intent-filter>
+247            <intent-filter>
+247-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+248                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+248-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+248-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\visha\.gradle\caches\8.12\transforms\e48f74a6efa7e5bffb294ec37a578a6d\transformed\jetified-profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+249            </intent-filter>
+250        </receiver>
+251
+252        <service
+252-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
+253            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+253-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:30:13-103
+254            android:exported="false" >
+254-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:31:13-37
+255            <meta-data
+255-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:32:13-34:39
+256                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+256-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:33:17-94
+257                android:value="cct" />
+257-->[com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\visha\.gradle\caches\8.12\transforms\58b610e4ee4f217a81913f6f685e570b\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:34:17-36
+258        </service>
+259        <service
+259-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:26:9-30:19
+260            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+260-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:27:13-117
+261            android:exported="false"
+261-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:28:13-37
+262            android:permission="android.permission.BIND_JOB_SERVICE" >
+262-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:29:13-69
+263        </service>
+264
+265        <receiver
+265-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:32:9-34:40
+266            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+266-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:33:13-132
+267            android:exported="false" />
+267-->[com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\visha\.gradle\caches\8.12\transforms\b56f1d6ff7969ba68c85c92dbd6bc429\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:34:13-37
+268    </application>
+269
+270</manifest>

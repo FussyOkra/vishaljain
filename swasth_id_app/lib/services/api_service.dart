@@ -162,4 +162,40 @@ class ApiService {
       return {'success': false, 'message': e.toString()};
     }
   }
+
+  // -------------------------
+  // AAROGYA SETU FEATURES
+  // -------------------------
+
+  static Future<Map<String, dynamic>> fetchHealthStatus(String healthId) async {
+    final uri = Uri.parse('$baseUrl/health/status/$healthId');
+
+    try {
+      final response = await http.get(uri);
+      
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': jsonDecode(response.body)};
+      } else {
+        return {'success': false, 'message': response.body};
+      }
+    } catch (e) {
+      return {'success': false, 'message': e.toString()};
+    }
+  }
+
+  static Future<Map<String, dynamic>> fetchVaccineCertificate(String healthId) async {
+    final uri = Uri.parse('$baseUrl/health/vaccine-certificate/$healthId');
+
+    try {
+      final response = await http.get(uri);
+      
+      if (response.statusCode == 200) {
+        return {'success': true, 'data': jsonDecode(response.body)};
+      } else {
+        return {'success': false, 'message': response.body};
+      }
+    } catch (e) {
+      return {'success': false, 'message': e.toString()};
+    }
+  }
 }

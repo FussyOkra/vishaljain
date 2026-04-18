@@ -28,6 +28,10 @@ class VisitService {
     bool referred = false,
     String? referredTo,
     String? referralReason,
+    // New Fields
+    String? doctorName,
+    String? specialization,
+    String? attachments,
   }) async {
     // Note: Backend requires 'symptoms' but user didn't ask for it in UI.
     // We send empty string or duplicate chiefComplaint to avoid 422.
@@ -52,6 +56,10 @@ class VisitService {
       'referred': referred.toString(),
       if (referredTo != null) 'referred_to': referredTo,
       if (referralReason != null) 'referral_reason': referralReason,
+
+      if (doctorName != null) 'doctor_name': doctorName,
+      if (specialization != null) 'specialization': specialization,
+      if (attachments != null) 'attachments': attachments,
     };
 
     final uri = Uri.parse('$baseUrl/visits/create').replace(queryParameters: queryParams);
